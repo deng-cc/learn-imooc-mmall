@@ -14,4 +14,9 @@ public interface IUserService {
 
     ServerResponse<User> login(String username, String password, HttpSession session);
 
+    ServerResponse<String> logout(HttpSession session);
+
+    ServerResponse<String> register(User user);
+
+    ServerResponse<String> checkValid(String str, String type);
 }

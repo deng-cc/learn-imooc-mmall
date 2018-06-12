@@ -158,6 +158,12 @@
         WHERE username = #{username}
     </select>
 
+    <select id="checkEmail" resultType="int" parameterType="String">
+            SELECT COUNT(1)
+            FROM mmall_user
+            WHERE email = #{email}
+        </select>
+
     <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="Base_Column_List"/>
