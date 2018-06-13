@@ -1,6 +1,7 @@
 package com.mmall.service;
 
 import com.mmall.common.ServerResponse;
+import com.mmall.common.UsernameTypeEnum;
 import com.mmall.pojo.User;
 
 import javax.servlet.http.HttpSession;
@@ -18,5 +19,21 @@ public interface IUserService {
 
     ServerResponse<String> register(User user);
 
-    ServerResponse<String> checkValid(String str, String type);
+    ServerResponse<String> checkValid(String str, UsernameTypeEnum type);
+
+    ServerResponse<User> getCurUserInfo(HttpSession session);
+
+    ServerResponse<String> getReminder(String username);
+
+    ServerResponse<String> checkReminderAnswer(String username, String reminder, String answer);
+
+    ServerResponse<String> retrievePassword(String username, String newPassword, String token);
+
+    ServerResponse<String> resetPassword(String oldPassword, String newPassword, HttpSession session);
+
+    ServerResponse<User> updateUserInfo(User user, HttpSession session);
+
+    ServerResponse<User> getUserInfo(HttpSession session);
+
+    ServerResponse checkAdminRole(User user);
 }

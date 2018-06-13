@@ -1,13 +1,13 @@
 package com.mmall.common;
 
 /**
- * ResponseCode.
+ * ResponseStatusEnum.
  *
  * @author Dulk
  * @version 20180611
  * @date 2018/6/11
  */
-public enum ResponseCode {
+public enum ResponseStatusEnum {
 
     SUCCESS(0, "SUCCESS"),
     ERROR(1, "ERROR"),
@@ -17,7 +17,7 @@ public enum ResponseCode {
     private final int code;
     private final String desc;
 
-    ResponseCode(int code, String desc) {
+    ResponseStatusEnum(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }

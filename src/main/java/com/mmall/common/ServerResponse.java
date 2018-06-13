@@ -55,34 +55,34 @@ public class ServerResponse<T> implements Serializable {
     //json序列化忽略该属性
     @JsonIgnore
     public boolean isSuccess() {
-        return status == ResponseCode.SUCCESS.getCode();
+        return status == ResponseStatusEnum.SUCCESS.getCode();
     }
 
     public static <T> ServerResponse<T> createBySuccess() {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode());
+        return new ServerResponse<T>(ResponseStatusEnum.SUCCESS.getCode());
     }
 
     public static <T> ServerResponse<T> createBySuccessMessage(String msg) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), msg);
+        return new ServerResponse<T>(ResponseStatusEnum.SUCCESS.getCode(), msg);
     }
 
     public static <T> ServerResponse<T> createBySuccess(T data) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), data);
+        return new ServerResponse<T>(ResponseStatusEnum.SUCCESS.getCode(), data);
     }
 
     public static <T> ServerResponse<T> createBySuccess(String msg, T data) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), msg, data);
+        return new ServerResponse<T>(ResponseStatusEnum.SUCCESS.getCode(), msg, data);
     }
 
     public static <T> ServerResponse<T> createByError() {
-        return new ServerResponse<T>(ResponseCode.ERROR.getCode());
+        return new ServerResponse<T>(ResponseStatusEnum.ERROR.getCode());
     }
 
     public static <T> ServerResponse<T> createByErrorMessage(String msg) {
-        return new ServerResponse<T>(ResponseCode.ERROR.getCode(), msg);
+        return new ServerResponse<T>(ResponseStatusEnum.ERROR.getCode(), msg);
     }
 
-    public static <T> ServerResponse<T> createByErrorCodeMessage(ResponseCode errorCode, String errorMessage) {
+    public static <T> ServerResponse<T> createByErrorCodeMessage(ResponseStatusEnum errorCode, String errorMessage) {
         return new ServerResponse<T>(errorCode.getCode(), errorMessage);
     }
 
