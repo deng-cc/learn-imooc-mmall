@@ -2,6 +2,8 @@ package com.mmall.service;
 
 import com.mmall.common.ServerResponse;
 
+import java.util.List;
+
 /**
  * User: Dulk
  * Date: 2018/6/13
@@ -14,5 +16,5 @@ public interface ICategoryService {
 
     ServerResponse getChildrenParallelCategory(Integer categoryId);
 
-    ServerResponse selectCategoryAndChildrenById(Integer categoryId);
+    ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId);
 }
