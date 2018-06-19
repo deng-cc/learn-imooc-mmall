@@ -48,21 +48,13 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public ServerResponse<User> login(String username, String password, HttpSession session) {
+    public ServerResponse<User> login(String username, String password) {
         User user = userMapper.selectLogin(username, MD5Util.MD5EncodeUtf8(password));
         if (user == null) {
             return ServerResponse.createByErrorMessage("用户名或密码错误");
         }
-
         user.setPassword(StringUtils.EMPTY);
-        session.setAttribute(Const.CURRENT_USER, user);
         return ServerResponse.createBySuccess("登陆成功", user);
-    }
-
-    @Override
-    public ServerResponse<String> logout(HttpSession session) {
-        session.removeAttribute(Const.CURRENT_USER);
-        return ServerResponse.createBySuccess();
     }
 
     @Override
@@ -88,16 +80,6 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ServerResponse<String> checkValid(String str, UsernameTypeEnum type) {
         return isValid(str, type);
-    }
-
-    @Override
-    public ServerResponse<User> getCurUserInfo(HttpSession session) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.createByErrorMessage("用户未登录，无法获取用户信息");
-        }
-
-        return ServerResponse.createBySuccess(user);
     }
 
     @Override
@@ -148,8 +130,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ServerResponse<String> resetPassword(String oldPassword, String newPassword, HttpSession session) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse<String> resetPassword(String oldPassword, String newPassword, User user) {
         if (user == null) {
             return ServerResponse.createByErrorMessage("用户未登录");
         }
@@ -164,13 +145,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ServerResponse<User> updateUserInfo(User user, HttpSession session) {
-        User curUser = (User) session.getAttribute(Const.CURRENT_USER);
-        if (curUser == null) {
-            return ServerResponse.createByErrorMessage("用户未登录");
-        }
-        user.setId(curUser.getId());
-        user.setUsername(curUser.getUsername());
+    public ServerResponse<User> updateUserInfo(User user) {
         if (userMapper.checkEmailByUserId(user.getEmail(), user.getId()) > 0) {
             return ServerResponse.createByErrorMessage("email已存在");
         }
@@ -182,7 +157,6 @@ public class UserServiceImpl implements IUserService {
         updateUser.setAnswer(user.getAnswer());
 
         if (userMapper.updateByPrimaryKeySelective(updateUser) > 0) {
-            session.setAttribute(Const.CURRENT_USER, user);
             return ServerResponse.createBySuccess("更新个人信息成功", updateUser);
         }
 
@@ -190,12 +164,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public ServerResponse<User> getUserInfo(HttpSession session) {
-        User curUser = (User) session.getAttribute(Const.CURRENT_USER);
-        if (curUser == null) {
-            return ServerResponse.createByErrorCodeMessage(ResponseStatusEnum.NEED_LOGIN, "用户未登录");
-        }
-        User user = userMapper.selectByPrimaryKey(curUser.getId());
+    public ServerResponse<User> getUserInfo(Integer userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
         if (user == null) {
             return ServerResponse.createByErrorMessage("找不到当前用户");
         }

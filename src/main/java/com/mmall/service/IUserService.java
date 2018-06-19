@@ -13,15 +13,11 @@ import javax.servlet.http.HttpSession;
  */
 public interface IUserService {
 
-    ServerResponse<User> login(String username, String password, HttpSession session);
-
-    ServerResponse<String> logout(HttpSession session);
+    ServerResponse<User> login(String username, String password);
 
     ServerResponse<String> register(User user);
 
     ServerResponse<String> checkValid(String str, UsernameTypeEnum type);
-
-    ServerResponse<User> getCurUserInfo(HttpSession session);
 
     ServerResponse<String> getReminder(String username);
 
@@ -29,11 +25,11 @@ public interface IUserService {
 
     ServerResponse<String> retrievePassword(String username, String newPassword, String token);
 
-    ServerResponse<String> resetPassword(String oldPassword, String newPassword, HttpSession session);
+    ServerResponse<String> resetPassword(String oldPassword, String newPassword, User user);
 
-    ServerResponse<User> updateUserInfo(User user, HttpSession session);
+    ServerResponse<User> updateUserInfo(User user);
 
-    ServerResponse<User> getUserInfo(HttpSession session);
+    ServerResponse<User> getUserInfo(Integer userId);
 
     ServerResponse checkAdminRole(User user);
 }

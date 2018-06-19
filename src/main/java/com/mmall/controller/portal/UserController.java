@@ -1,5 +1,7 @@
 package com.mmall.controller.portal;
 
+import com.mmall.common.Const;
+import com.mmall.common.ResponseStatusEnum;
 import com.mmall.common.ServerResponse;
 import com.mmall.common.UsernameTypeEnum;
 import com.mmall.pojo.User;
@@ -29,13 +31,18 @@ public class UserController {
     @RequestMapping(value = "login.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session) {
-        return iUserService.login(username, password, session);
+        ServerResponse<User> response = iUserService.login(username, password);
+        if (response.isSuccess()) {
+            session.setAttribute(Const.CURRENT_USER, response.getData());
+        }
+        return response;
     }
 
     @RequestMapping(value = "logout.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> logout(HttpSession session) {
-        return iUserService.logout(session);
+        session.removeAttribute(Const.CURRENT_USER);
+        return ServerResponse.createBySuccess();
     }
 
     @RequestMapping(value = "register.do", method = RequestMethod.POST)
@@ -59,7 +66,11 @@ public class UserController {
     @RequestMapping(value = "getCurUserInfo.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> getCurUserInfo(HttpSession session) {
-        return iUserService.getCurUserInfo(session);
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user != null) {
+            return ServerResponse.createBySuccess(user);
+        }
+        return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
     }
 
     @RequestMapping(value = "getReminder.do", method = RequestMethod.POST)
@@ -83,19 +94,39 @@ public class UserController {
     @RequestMapping(value = "resetPassword.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> resetPassword(String oldPassword, String newPassword, HttpSession session) {
-        return iUserService.resetPassword(oldPassword, newPassword, session);
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorMessage("用户未登录");
+        }
+        return iUserService.resetPassword(oldPassword, newPassword, user);
     }
 
     @RequestMapping(value = "updateUserInfo.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> updateUserInfo(User user, HttpSession session) {
-        return iUserService.updateUserInfo(user, session);
+        User curUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (curUser == null) {
+            return ServerResponse.createByErrorMessage("用户未登录");
+        }
+        user.setId(curUser.getId());
+        user.setUsername(curUser.getUsername());
+        ServerResponse<User> response = iUserService.updateUserInfo(user);
+        if (response.isSuccess()) {
+            response.getData().setUsername(curUser.getUsername());
+            session.setAttribute(Const.CURRENT_USER, response.getData());
+        }
+
+        return response;
     }
 
     @RequestMapping(value = "getUserInfo.do", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> getUserInfo(HttpSession session) {
-        return iUserService.getUserInfo(session);
+        User curUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (curUser == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseStatusEnum.NEED_LOGIN, "用户未登录");
+        }
+        return iUserService.getUserInfo(curUser.getId());
     }
 
 
