@@ -222,7 +222,7 @@
             <version>1.10</version>
         </dependency>
         <dependency>
-            <groupImd>commons-lang</groupImd>
+            <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>

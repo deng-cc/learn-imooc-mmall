@@ -1,7 +1,6 @@
 *.class
 
 #package file
-
 *.war
 *.ear
 
@@ -34,6 +33,10 @@ target/
 # system ignore
 .DS_Store
 Thumbs.db
+
+#other
+ftpFile/img/
+developer/
 
 
 
