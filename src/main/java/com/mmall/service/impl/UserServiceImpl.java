@@ -1,7 +1,6 @@
 package com.mmall.service.impl;
 
 import com.mmall.common.Const;
-import com.mmall.common.ResponseStatusEnum;
 import com.mmall.common.ServerResponse;
 import com.mmall.common.TokenCache;
 import com.mmall.common.UsernameTypeEnum;
@@ -13,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 /**
