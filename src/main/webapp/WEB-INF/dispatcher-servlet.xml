@@ -13,7 +13,7 @@
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes">
+                <property username="supportedMediaTypes">
                     <list>
                         <value>text/plain;charset=UTF-8</value>
                         <value>text/html;charset=UTF-8</value>
@@ -21,7 +21,7 @@
                 </property>
             </bean>
             <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-                <property name="supportedMediaTypes">
+                <property username="supportedMediaTypes">
                     <list>
                         <value>application/json;charset=UTF-8</value>
                     </list>
@@ -34,9 +34,9 @@
 
     <!-- 文件上传 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="10485760"/> <!-- 10m -->
-        <property name="maxInMemorySize" value="4096" />
-        <property name="defaultEncoding" value="UTF-8"></property>
+        <property username="maxUploadSize" value="10485760"/> <!-- 10m -->
+        <property username="maxInMemorySize" value="4096" />
+        <property username="defaultEncoding" value="UTF-8"></property>
     </bean>
 
 

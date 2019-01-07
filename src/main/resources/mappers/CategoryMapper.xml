@@ -5,7 +5,7 @@
         <constructor>
             <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="parent_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="status" jdbcType="BIT" javaType="java.lang.Boolean"/>
             <arg column="sort_order" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
@@ -13,7 +13,7 @@
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-        id, parent_id, name, status, sort_order, create_time, update_time
+        id, parent_id, username, status, sort_order, create_time, update_time
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -34,10 +34,10 @@
         WHERE id = #{id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="com.mmall.pojo.Category">
-        INSERT INTO mmall_category (id, parent_id, name,
+        INSERT INTO mmall_category (id, parent_id, username,
                                     status, sort_order, create_time,
                                     update_time)
-        VALUES (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+        VALUES (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
                 #{status,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER}, now(),
                 now())
     </insert>
@@ -50,8 +50,8 @@
             <if test="parentId != null">
                 parent_id,
             </if>
-            <if test="name != null">
-                name,
+            <if test="username != null">
+                username,
             </if>
             <if test="status != null">
                 status,
@@ -73,8 +73,8 @@
             <if test="parentId != null">
                 #{parentId,jdbcType=INTEGER},
             </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
             </if>
             <if test="status != null">
                 #{status,jdbcType=BIT},
@@ -96,8 +96,8 @@
             <if test="parentId != null">
                 parent_id = #{parentId,jdbcType=INTEGER},
             </if>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
             </if>
             <if test="status != null">
                 status = #{status,jdbcType=BIT},
@@ -117,7 +117,7 @@
     <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.Category">
         UPDATE mmall_category
         SET parent_id   = #{parentId,jdbcType=INTEGER},
-            name        = #{name,jdbcType=VARCHAR},
+            username        = #{username,jdbcType=VARCHAR},
             status      = #{status,jdbcType=BIT},
             sort_order  = #{sortOrder,jdbcType=INTEGER},
             create_time = #{createTime,jdbcType=TIMESTAMP},

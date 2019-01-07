@@ -5,7 +5,7 @@
         <constructor>
             <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="category_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="subtitle" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="main_image" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="sub_images" jdbcType="VARCHAR" javaType="java.lang.String"/>
@@ -18,7 +18,7 @@
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-        id, category_id, name, subtitle, main_image, sub_images, detail, price, stock, status,
+        id, category_id, username, subtitle, main_image, sub_images, detail, price, stock, status,
         create_time, update_time
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -41,7 +41,7 @@
         FROM mmall_product
         <where>
             <if test="productName != null">
-                AND name LIKE #{productName}
+                AND username LIKE #{productName}
             </if>
             <if test="productId != null">
                 AND id = #{productId}
@@ -55,7 +55,7 @@
         FROM mmall_product
         WHERE status = 1
         <if test="productName != null">
-            AND name LIKE #{productName}
+            AND username LIKE #{productName}
         </if>
         <if test="categoryIdList != null">
             AND category_id IN
@@ -70,12 +70,12 @@
         WHERE id = #{id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="com.mmall.pojo.Product">
-        INSERT INTO mmall_product (id, category_id, name,
+        INSERT INTO mmall_product (id, category_id, username,
                                    subtitle, main_image, sub_images,
                                    detail, price, stock,
                                    status, create_time, update_time
         )
-        VALUES (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+        VALUES (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
                                         #{subtitle,jdbcType=VARCHAR}, #{mainImage,jdbcType=VARCHAR},
                                         #{subImages,jdbcType=VARCHAR},
                                         #{detail,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},
@@ -92,8 +92,8 @@
             <if test="categoryId != null">
                 category_id,
             </if>
-            <if test="name != null">
-                name,
+            <if test="username != null">
+                username,
             </if>
             <if test="subtitle != null">
                 subtitle,
@@ -130,8 +130,8 @@
             <if test="categoryId != null">
                 #{categoryId,jdbcType=INTEGER},
             </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
             </if>
             <if test="subtitle != null">
                 #{subtitle,jdbcType=VARCHAR},
@@ -168,8 +168,8 @@
             <if test="categoryId != null">
                 category_id = #{categoryId,jdbcType=INTEGER},
             </if>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
             </if>
             <if test="subtitle != null">
                 subtitle = #{subtitle,jdbcType=VARCHAR},
@@ -204,7 +204,7 @@
     <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.Product">
         UPDATE mmall_product
         SET category_id = #{categoryId,jdbcType=INTEGER},
-            name        = #{name,jdbcType=VARCHAR},
+            username        = #{username,jdbcType=VARCHAR},
             subtitle    = #{subtitle,jdbcType=VARCHAR},
             main_image  = #{mainImage,jdbcType=VARCHAR},
             sub_images  = #{subImages,jdbcType=VARCHAR},

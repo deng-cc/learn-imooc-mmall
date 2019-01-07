@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <appender username="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoding>UTF-8</encoding>
         <encoder>
             <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
@@ -10,7 +10,7 @@
         </filter>
     </appender>
 
-    <appender name="mmall" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender username="mmall" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--<File>d:/mmalllog/mmall.log</File>-->
         <File>/workspace/project/training/imooc/mmall/developer/apache-tomcat-7.0.73/logs/mmall.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -24,7 +24,7 @@
     </appender>
 
 
-    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender username="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--<File>d:/mmalllog/error.log</File>-->
         <File>/workspace/project/training/imooc/mmall/developer/apache-tomcat-7.0.73/logs/error.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -43,7 +43,7 @@
         </filter>
     </appender>
 
-    <logger name="com.mmall" additivity="false" level="INFO" >
+    <logger username="com.mmall" additivity="false" level="INFO" >
         <appender-ref ref="mmall" />
         <appender-ref ref="console"/>
     </logger>
@@ -52,20 +52,20 @@
 
     <!-- geelynote mybatis log 日志 -->
 
-    <logger name="com.mmall.dao" level="DEBUG"/>
+    <logger username="com.mmall.dao" level="DEBUG"/>
 
-    <!--<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" >-->
+    <!--<logusernamename="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" >-->
         <!--<appender-ref ref="console"/>-->
     <!--</logger>-->
 
-    <!--<logger name="java.sql.Connection" level="DEBUG">-->
+    <!--<logusernamename="java.sql.Connection" level="DEBUG">-->
         <!--<appender-ref ref="console"/>-->
     <!--</logger>-->
-    <!--<logger name="java.sql.Statement" level="DEBUG">-->
+    <!--<logusernamename="java.sql.Statement" level="DEBUG">-->
         <!--<appender-ref ref="console"/>-->
     <!--</logger>-->
 
-    <!--<logger name="java.sql.PreparedStatement" level="DEBUG">-->
+    <!--<logusernamename="java.sql.PreparedStatement" level="DEBUG">-->
         <!--<appender-ref ref="console"/>-->
     <!--</logger>-->
 

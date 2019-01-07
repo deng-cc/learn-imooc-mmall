@@ -37,6 +37,7 @@ import com.mmall.vo.OrderItemVO;
 import com.mmall.vo.OrderProductVO;
 import com.mmall.vo.OrderVO;
 import com.mmall.vo.ShippingVO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -60,10 +61,11 @@ import java.util.Random;
  * @version 20180712
  * @date 2018/7/12
  */
+@Slf4j
 @Service("iOrderService")
 public class OrderServiceImpl implements IOrderService {
 
-    private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
+    //private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
     private OrderMapper orderMapper;
