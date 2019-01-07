@@ -99,7 +99,7 @@ public class Main {
         //        main.test_monitor_pos();
 
         // 测试交易保障接口调度
-        //        main.test_monitor_schedule_logic();
+        main.test_monitor_schedule_logic();
 
         // 测试当面付2.0支付（使用未集成交易保障接口的当面付2.0服务）
         //        main.test_trade_pay(tradeService);
@@ -111,7 +111,7 @@ public class Main {
         //        main.test_trade_refund();
 
         // 测试当面付2.0生成支付二维码
-        main.test_trade_precreate();
+        //main.test_trade_precreate();
     }
 
     // 测试系统商交易保障调度
@@ -124,7 +124,7 @@ public class Main {
 
         // 启动当面付，此处每隔5秒调用一次支付接口，并且当随机数为0时交易保障线程退出
         while (Math.random() != 0) {
-            test_trade_pay(tradeWithHBService);
+//            test_trade_pay(tradeWithHBService);
             Utils.sleep(5 * 1000);
         }
 
