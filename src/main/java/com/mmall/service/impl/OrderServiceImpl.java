@@ -40,8 +40,6 @@ import com.mmall.vo.ShippingVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -453,7 +451,7 @@ public class OrderServiceImpl implements IOrderService {
                 .setGoodsDetailList(goodsDetailList);
 
 
-        Configs.init("zfbinfo.properties");
+        Configs.init("src/main/resources.beta/zfbinfo.properties");
         AlipayTradeService tradeService = new AlipayTradeServiceImpl.ClientBuilder().build();
 
         AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);
