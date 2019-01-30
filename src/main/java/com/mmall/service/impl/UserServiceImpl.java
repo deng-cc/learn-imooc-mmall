@@ -2,12 +2,12 @@ package com.mmall.service.impl;
 
 import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
-import com.mmall.common.TokenCache;
 import com.mmall.common.UsernameTypeEnum;
 import com.mmall.dao.UserMapper;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 import com.mmall.util.MD5Util;
+import com.mmall.util.RedisPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,7 +96,7 @@ public class UserServiceImpl implements IUserService {
     public ServerResponse<String> checkReminderAnswer(String username, String reminder, String answer) {
         if (userMapper.checkAnswer(username, reminder, answer) > 0) {
             String token = UUID.randomUUID().toString();
-            TokenCache.setKey(TokenCache.TOKEN_PREFIX + username, token);
+            RedisPoolUtil.setEx(Const.TOKEN_PREFIX + username, token, 60 * 60 * 12);
             return ServerResponse.createBySuccess(token);
         }
 
@@ -111,7 +111,7 @@ public class UserServiceImpl implements IUserService {
         if (isValid(username, UsernameTypeEnum.USERNAME).isSuccess()) {
             return ServerResponse.createByErrorMessage("用户不存在");
         }
-        String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX + username);
+        String token = RedisPoolUtil.get(Const.TOKEN_PREFIX + username);
         if (StringUtils.isBlank(token)) {
             return ServerResponse.createByErrorMessage("token无效或者过期");
         }
