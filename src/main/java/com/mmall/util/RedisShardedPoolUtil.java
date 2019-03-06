@@ -40,6 +40,29 @@ public class RedisShardedPoolUtil {
     }
 
     /**
+     * 设置新值并返回旧值
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public static String getset(String key, String value) {
+        ShardedJedis jedis = null;
+        String result = null;
+        try {
+            jedis = RedisShardedPool.getJedis();
+            result = jedis.getSet(key, value);
+        } catch (Exception e) {
+            log.error("getset key:{} value:{} error", key, value, e);
+            RedisShardedPool.returnBrokenResource(jedis);
+            return result;
+        }
+
+        RedisShardedPool.returnResource(jedis);
+        return result;
+    }
+
+    /**
      * 设置带有有效期的键值对
      *
      * @param key
