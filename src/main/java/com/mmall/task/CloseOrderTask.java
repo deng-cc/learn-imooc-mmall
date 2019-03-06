@@ -89,8 +89,8 @@ public class CloseOrderTask {
     }
 
     private void closeOrder(String lockName) {
-        //有效期50秒，防止死锁
-        RedisShardedPoolUtil.expire(lockName, 50);
+        //有效期5秒，防止死锁
+        RedisShardedPoolUtil.expire(lockName, 5);
         log.info("获取{}, ThreadName:{}", Const.REDIS_LOCK.CLOSE_ORDER_TASK_LOCK, Thread.currentThread().getName());
         int hour = Integer.parseInt(PropertiesUtil.getProperty("close.order.task.time.hour", "2"));
         //iOrderService.closeOrder(hour);
