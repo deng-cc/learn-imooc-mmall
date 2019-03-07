@@ -101,7 +101,7 @@ public class CloseOrderTask {
         boolean getLock = false;
         //等待获取锁的最大时间、释放时间、单位
         try {
-            if (getLock = lock.tryLock(2, 5, TimeUnit.SECONDS)) {
+            if (getLock = lock.tryLock(0, 5, TimeUnit.SECONDS)) {
                 log.info("Redisson获取到分布式锁:{},ThreadName:{}",
                         Const.REDIS_LOCK.CLOSE_ORDER_TASK_LOCK, Thread.currentThread().getName());
                 int hour = Integer.parseInt(PropertiesUtil.getProperty("close.order.task.time.hour", "2"));
